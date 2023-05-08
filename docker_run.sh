@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ARGS=("$@")
-
+USER_NAME="arg"
 # Make sure processes in the container can connect to the x server
 # Necessary so gazebo can create a context for OpenGL rendering (even headless)
 XAUTH=/tmp/.docker.xauth
@@ -23,7 +23,7 @@ if [ ! -f $XAUTH ]; then
 fi
 
 BASH_OPTION=bash
-
+xhost +
 docker run \
     -it \
     --rm \
@@ -43,3 +43,4 @@ docker run \
     --security-opt seccomp=unconfined \
     argnctu/oop:latest \
     $BASH_OPTION
+xhost -
